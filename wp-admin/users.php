@@ -297,7 +297,7 @@ default:
 		wp_redirect(remove_query_arg(array('_wp_http_referer', '_wpnonce'), stripslashes($_SERVER['REQUEST_URI'])));
 		exit;
 	}
-
+	
 	$wp_list_table->prepare_items();
 	$total_pages = $wp_list_table->get_pagination_arg( 'total_pages' );
 	if ( $pagenum > $total_pages && $total_pages > 0 ) {

@@ -31,13 +31,25 @@ $_SESSION['cryptkey']=$key;
 function encrypt($data){
 	global $cryptastic;
 	$edata=$cryptastic->encrypt($data, $_SESSION['cryptkey'], true);
-return $edata;
+return trim($edata);
 }
 
 function decrypt($data){
 	global $cryptastic;
 	$ddata=$cryptastic->decrypt($data,$_SESSION['cryptkey'],true);
-return $ddata;
+return trim($ddata);
+}
+
+function mysqluserdbfields(){
+        if(SQLENC=="TRUE")
+                $fields = "ID, user_login, AES_DECRYPT(user_pass,'".SQLKEY."') as user_pass,
+        AES_DECRYPT(user_nicename, '".SQLKEY."') as user_nicename, AES_DECRYPT(user_email,'".SQLKEY."') as user_email,
+        AES_DECRYPT(user_url, '".SQLKEY."') as user_url, AES_DECRYPT(user_registered,'".SQLKEY."')as user_registered,
+        AES_DECRYPT(user_activation_key,'".SQLKEY."') as user_activation_key,
+        AES_DECRYPT(user_status,'".SQLKEY."') as user_status, AES_DECRYPT(display_name,'".SQLKEY."') as display_name";  
+        else
+                $fields = "*";
+	return $fields;
 }
 
 function mysql2date( $dateformatstring, $mysqlstring, $translate = true ) {

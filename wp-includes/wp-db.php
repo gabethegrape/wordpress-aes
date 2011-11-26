@@ -1358,7 +1358,7 @@ class wpdb {
 	 */
 	function get_var( $query = null, $x = 0, $y = 0 ) {
 		$this->func_call = "\$db->get_var(\"$query\", $x, $y)";
-
+		//echo "$query";
 		if ( $query )
 			$this->query( $query );
 

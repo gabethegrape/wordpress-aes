@@ -158,7 +158,9 @@ switch($step) {
 
                 <tr>
                         <th scope="row"><label for="mysqlkey">MySQL AES Key</label>
-<input type="button" value="Generate" onClick="randomString('sqlkey');" \>
+<div align="center">
+<input class="button" type="button" value="Generate" onClick="randomString('sqlkey');" \>
+</div>
 </th>
                         <td><textarea cols="40" rows="5" name="sqlkey" id="sqlkey" type="text" >Something very long and random</textarea></td>
                         <td>The key we are going to use to encrypt the information with MySQL AES encryption function.
@@ -167,14 +169,20 @@ switch($step) {
 
                 <tr>
                         <th scope="row"><label for="mcryptpass">PHP AES Pass 1:</label>
-<input type="button" value="Generate" onClick="randomString('mcryptpass');" \></th>
+<p><div align="center">
+<input class="button" type="button" value="Generate" onClick="randomString('mcryptpass');" \>
+</div>
+</p>
+</th>
                         <td><textarea cols="40" rows="5" name="mcryptpass" id="mcryptpass" type="text" >Something very long and random</textarea></td>
                         <td>The password for encrypting and decrypting the information stored inside the database.
 			 </td>
                 </tr>
                 <tr>
                         <th scope="row"><label for="mcryptsalt">PHP AES Salt 1:</label>
-<input type="button" value="Generate" onClick="randomString('mcryptsalt');" \>
+<center>
+<input class="button" type="button" value="Generate" onClick="randomString('mcryptsalt');" \>
+</center>
 </th>
                         <td><textarea cols="40" rows="5" name="mcryptsalt" id="mcryptsalt" type="text" value="pepper?">Something verylong and random</textarea></td>
                         <td>The salt to use for generating the key and appending to the encrypted data. Leave blank for random salt. 
@@ -218,7 +226,9 @@ switch($step) {
                 </tr>
                 <tr>
                         <th scope="row"><label for="mcryptPBKDF2intc">PBKDF2 Interation Count</label>
-<input type="button" value="Generate" onClick="randomNumber('mcryptPBKDF2interation');" \>
+<div align="center">
+<input class="button" type="button" value="Generate" onClick="randomNumber('mcryptPBKDF2interation');" \>
+</div>
 </th>
                         <td><input name="mcryptPBKDF2interation" id="mcryptPBKDF2interation" type="text" size="25" value="20000" /></td>
                         <td>Use at least 1,000, and ideally you should use a number much higher such as 20,000. 

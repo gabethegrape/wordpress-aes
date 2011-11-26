@@ -543,7 +543,10 @@ class WP_User_Query {
 	 */
 	function query() {
 		global $wpdb;
-		echo "SELECT $this->query_fields $this->query_from $this->query_where $this->query_orderby $this->query_limit";
+//		echo "SELECT $this->query_fields $this->query_from $this->query_where $this->query_orderby $this->query_limit<br><br>";
+//		echo "SELECT $this->query_fields $this->query_from $this->query_where $this->query_orderby $this->query_limit<br><br>";
+		
+
 		if ( is_array( $this->query_vars['fields'] ) || 'all' == $this->query_vars['fields'] ) {
 			$this->results = $wpdb->get_results("SELECT $this->query_fields $this->query_from $this->query_where $this->query_orderby $this->query_limit");
 		} else {
@@ -1479,9 +1482,12 @@ function wp_insert_user($userdata) {
 	$user_nicename = encrypt($user_nicename);
 	$display_name = encrypt($display_name);
 	$user_registered = encrypt($user_registered);
+
+	if(!$user_status)
+		$user_status='0';
+
 	$user_status = encrypt($user_status);
 	$user_url = encrypt($user_url);
-	$user_registered = encrypt($user_registered);
 	$user_activation_key = encrypt($user_activation_key);
 	$data = compact( 'user_pass','user_status', 'user_email', 'user_url', 'user_nicename', 'display_name', 'user_registered','user_activation_key' );
 	$data = stripslashes_deep( $data );

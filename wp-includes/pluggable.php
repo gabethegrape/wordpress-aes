@@ -100,7 +100,6 @@ if ( !function_exists('get_userdata') ) :
  */
 function get_userdata( $user_id ) {
 	global $wpdb;
-	$sqlkey=SQLKEY;
 
 	if ( ! is_numeric( $user_id ) )
 		return false;
@@ -112,15 +111,7 @@ function get_userdata( $user_id ) {
 	$user = wp_cache_get( $user_id, 'users' );
 	if ( $user )
 		return $user;
-	if(SQLENC=="TRUE")
-		$fields	= "ID, user_login, AES_DECRYPT(user_login,'$sqlkey') as user_pass,
-	AES_DECRYPT(user_nicename, '$sqlkey') as user_nicename, AES_DECRYPT(user_email,'$sqlkey') as user_email,
-	AES_DECRYPT(user_url, '$sqlkey') as user_url, AES_DECRYPT(user_registered,'$sqlkey')as user_registered,
-	AES_DECRYPT(user_activation_key,'$sqlkey') as user_activation_key,
-	AES_DECRYPT(user_status,'$sqlkey') as user_status, AES_DECRYPT(display_name,'$sqlkey') as display_name"; 
-	else
-		$fields = "*";
-	if ( ! $user = $wpdb->get_row( $wpdb->prepare( "SELECT $fields FROM $wpdb->users WHERE ID = %d LIMIT 1", $user_id ) ) )
+	if ( ! $user = $wpdb->get_row( $wpdb->prepare( "SELECT ".mysqluserdbfields()." FROM $wpdb->users WHERE ID = %d LIMIT 1", $user_id ) ) )
 		return false;
 	$user=decryptuser($user);
 	_fill_user( $user );
@@ -152,7 +143,8 @@ function cache_users( $users ) {
 		return;
 
 	$list = implode(',', $clean);
-	$results = $wpdb->get_results("SELECT * FROM $wpdb->users WHERE ID IN ($list)");
+	$fields=mysqluserdbfields();
+	$results = $wpdb->get_results("SELECT $fields FROM $wpdb->users WHERE ID IN ($list)");
 	_fill_many_users($results);
 }
 endif;
@@ -194,25 +186,11 @@ function get_user_by($field, $value) {
 	 if ( false !== $user_id )
 		return get_userdata($user_id);
 
-	switch(SQLENC){
-		case 'TRUE':
-			$sql="SELECT ID, user_login, 
-				AES_DECRYPT(user_pass,'$sqlkey')as user_pass, AES_DECRYPT(user_nicename,'$sqlkey') as user_nicename, 
-				AES_DECRYPT(user_email,'$sqlkey') as user_email, AES_DECRYPT(user_url,'$sqlkey') as user_url, 
-				AES_DECRYPT(user_registered,'$sqlkey') as user_registered, AES_DECRYPT(user_activation_key,'$sqlkey') as user_activation_key, 
-				AES_DECRYPT(user_status,'$sqlkey') as user_status, AES_DECRYPT(display_name,'$sqlkey') as display_name
-				FROM $wpdb->users WHERE $field = %s;";
-			break;
-		case 'FALSE':
-			$sql="SELECT * FROM $wpdb->users WHERE $field = %s;";
-			break;
-	}
-
-	if ( !$user = $wpdb->get_row( $wpdb->prepare("$sql", $value) ) ){
+	$fields=mysqluserdbfields();
+	$sql="SELECT $fields FROM $wpdb->users WHERE $field = %s";
+	if ( !$user = $wpdb->get_row( $wpdb->prepare($sql, $value) ) ){
 		return false;
 	}
-//	print_r($user);
-//	exit;
 	$user=decryptuser($user);
 	_fill_user($user);
 	return $user;
@@ -234,7 +212,6 @@ function get_userdatabylogin($user_login) {
 endif;
 
 function decryptuser($user){
-	
 	$user->user_email=decrypt($user->user_email);
         $user->display_name=decrypt($user->display_name);
 	$user->user_pass=decrypt($user->user_pass);

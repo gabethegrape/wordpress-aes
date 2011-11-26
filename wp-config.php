@@ -16,16 +16,16 @@
 
 // ** MySQL AES encryption Key ** //
 define('SQLENC', 'TRUE');
-define('SQLKEY', 'l8tSn6DLcq9AMW2VT0mBwPoCgu7F9HQS1XBVv58BEx7vpuLXTGaiq6R1t6Oaxtv4U5pacwKbRKWI2OOmgB0XWFpRppmaiDoiNJxtRWKPb6vT02hqyL1LmirqbOoTBhQoyG0U8spqtzJ216HgvIodTTFqzmGzZfCuNd7ZGWeTciVb8nSmyGicsx6iPf5athqbTHzn573GCscSlBnJyMo5xTT9Ozbiw63U4qsvTHxpxo20ZKK34oMlHa27EOxv6mMM');
+define('SQLKEY', 'Rp4VOB3rnFQmx8Rp9Uh6i6guOLy7ZetovDCPovEdL2usqBDAW49CSTZOuintihMWe427vsyA8wz7TiEBfraA8vnpWy4JyAKzkzuLrFUS6W1TkxZpVaQT5y8LPwn3QbEn4eT6Lp6B2CWmvc4weZCxGIQt2d3PklQxRVqy2vLkvaE3C4oB9shq8UMyNMSBN0DZsePeznTlhQ5Z1AxDRvTkouXh2yuO38JTF4vdRCUe8Rf5GthFZKhcOvs5xcafPQWo');
 
 // ** mcrypt database encryption setup ** //
 
 define('CIPHER', 'rijndael-256');
 define('CIPHERM', 'ctr'); 
-define('EPASS', 'Mosnpkl0XzK6mh7zgasrvLO3lHolwCHldTOQgcChLVmXMtwaxBBodMTLZsMwLnaeC02QV7ayFnmnvUHBAlpJR7HxOXUbmN3ZZ5TdJKADgdpsPHZRfMiaELGQfaH0o3Agxvp69LqqrWScRekSuc2zoqK0U2cFuANQqp75dc33F1iFdGpghUNd5N64fhHRSdO94t5csZ2sMddrEx3PxM9ZbzltAo317XoCydC7TTAVnq7Z7v7LGLA1DQ3ThMCLFrw8');
-define('ESALT', 'kywA1UfrMF1itATT8wep0ufqeDFTmS1CHLErU6ZLlCRGH8ZFHhIKe3lM97pbDTT5yIN3Ifq09TNWuazs8WeOoAfVTBxfv7ax12u7GKnkMMV81vU0hlraoi9miPUhfgLdlVxn02ouwsHKrM9TeuQpe4VpbgpHRTWCUWlIW0J8pGGJst6tZST4LNE1espfOaAaHDOr4DoMzqg2XuZ6ct6OCwlyZB4FEc1kGlsFFOQAUuL9AbAiE30HcdTaqpI0hQTl'); 
+define('EPASS', 'BOrKEOn3rPfIOq6Q0CNBGqndn22LrtC9OKRU9UK5cq69EvtJzDVdKuA9IW5hXIVTV3bL85lb0ZyKrx8wK5NdXfe3dRZuqpcJ1WgD2U5kLtR8HBDZiqMuTy4LFkstJlztqcNoVupiWduWdmfyBrxFt6gNZKMOMsNNWmQVMPFAOqqBskmCq6rThW6cDEsbLv1bbuOrzKnSMLvoO3H0ylTV4sImCvW87Qzr6cgG8toOQtPhL2VC9zZoF5zxTwfEahru');
+define('ESALT', 'Vfw5ztV5FHodo0ZQmzFuLwBJok68t6eSqXTqNyD8bwdpLFu5mJ3PHg6mfsesKWyiwRDhGom47ZeHx24ccNU3o6C6iFq83GLDAUeHblJw1GBQ47mxWJf30aU9BqvTZxwwE6FcDfCJUTirqL9BxzFqqiFRiU9otrTdIesTC0FMz8sPoWFeKKZp6uhwW4D1VNLTITkiJ5BKwONWecu42qDdUKF2Tn2x4t1rb0QHqoN7cVZmK7e0dQXO6EiwoslbtdhU'); 
 define('EPBALG', 'sha256'); //PBKDF2 hasing alg md5,sha,sha2,sha3
-define('EPBI', '16426'); //PBKDF2 interation
+define('EPBI', '17111'); //PBKDF2 interation
 
 /* 
 Regarding modes, the consensus was to either use CBC or CTR and because CBC requires us to manually perform padding operations I chose CTR, which also has other upsides. Do not use CFB and just as with the cipher, you will do well by NOT switching to another mode. 
@@ -59,14 +59,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'm~?-[@xs,`3+()YGC!?zBXj&*h)L|t.bEP_1Wo=r<EAZ+vRDPf7Kanhq@jew1 b5');
-define('SECURE_AUTH_KEY',  'AoJ@qnfTlCY><AlM_K%R7rXBwa}p8Gxph~3D0<vu6rKe7/V<5,i+SZIh-_dHS`+q');
-define('LOGGED_IN_KEY',    'k4Rma8Cs[3qLu 8c 3[g=*0f`5kn}b/SG:v7()M4qV^E@0o=n0vI$Sa@f[F/ek(s');
-define('NONCE_KEY',        'JBT.qoq<7yu7BMf1alU(T^&~MPWyhspw!L%(/n xZqw.bBt)#vYaT=WO3E<]fCsr');
-define('AUTH_SALT',        'g}94e)GPgN#^7h1>3jrudm/v-fKXl|qD]>D6m A+!{W/[2)!Hm wyVm/MJz1uS,>');
-define('SECURE_AUTH_SALT', 'nHov!Q+NzA]9wC4iY*-8Yo8i4G4d<F!~8[Uh6&wG!nDNM&ws )iz$Dk+R??c-t=x');
-define('LOGGED_IN_SALT',   'ism!ayOd*jJz-f(>-w?~63oXS^BIFn@Z~r}T.r|N UOvJ=i$Ra#pyZ3g#3]ONEsh');
-define('NONCE_SALT',       '|R^^,Us?&o3Qry59HN@x@dPm#wT7ME=]C3{Y+Kh%eBKtg7&UgAa)Xo9{(6}<tr&~');
+define('AUTH_KEY',         '=F*&YN%;P`{s6{s+ic$D>}EM*_+c:ur1_41a18;?W/laSYa;RW3HaVpg8?Qtn#Sf');
+define('SECURE_AUTH_KEY',  '5TTl9urU-YjKsdeIBgcza pd{||!v,+{T?nUn-3xWSvz-e14CzAqYp;-xJ~c,qp~');
+define('LOGGED_IN_KEY',    'HN{cO@+6b.d@F2?^jL{zqh+-nQ4ILl 38?Z0Q}_4Y/X4l?){}q+ezxY1P8y&ZXc,');
+define('NONCE_KEY',        '@aBQ9kEwv!Y-uA=T~DeDD (]0qqtwF5--7J5q_Fo//]-MGn-*8vGiMcJ7$GP~:CT');
+define('AUTH_SALT',        'e}Gqnxz{Wk04_Z3i}f)a-:O=oH!8)UD4Q^x(uR:<+3FYm>+BjOh1-f#-C(FoI-x$');
+define('SECURE_AUTH_SALT', 'Od`U/#M2|^8HO/bWFs<a}S&=6#s,v?3BR?e<QT^L+t^ ~n|`dtj%Fh}SN<|0+.>$');
+define('LOGGED_IN_SALT',   'F.|>oC_Re#$/V#4_B[~URu{1?!#8(/SF?1N%]%C/-B g3-}|,)0D-r+Nl{}=t1s@');
+define('NONCE_SALT',       'w8dHZpMc*Haj-ec[!y9w,-A,tzA/`Qw>gqD^U>P3A]4Vxkjj_P_Kewn&PF:m6#(c');
 
 /**#@-*/
 
@@ -76,7 +76,7 @@ define('NONCE_SALT',       '|R^^,Us?&o3Qry59HN@x@dPm#wT7ME=]C3{Y+Kh%eBKtg7&UgAa)
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp2_';
+$table_prefix  = 'wp17_';
 
 /**
  * WordPress Localized Language, defaults to English.

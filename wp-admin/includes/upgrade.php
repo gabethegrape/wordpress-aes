@@ -679,8 +679,8 @@ function upgrade_160() {
 	global $wpdb, $wp_current_db_version;
 
 	populate_roles_160();
-
-	$users = $wpdb->get_results("SELECT * FROM $wpdb->users");
+	$fields=mysqluserdbfields();
+	$users = $wpdb->get_results("SELECT $fields FROM $wpdb->users");
 	foreach ( $users as $user ) :
 		if ( !empty( $user->user_firstname ) )
 			update_user_meta( $user->ID, 'first_name', $wpdb->escape($user->user_firstname) );
