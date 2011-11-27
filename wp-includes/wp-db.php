@@ -1415,11 +1415,12 @@ class wpdb {
 		print_r($this->last_result[$y]);
 
 		$newvalues=dbuserquerychk($query,$this->last_result[$y],$this->prefix);		
-
-		if($newvalues != false)
+		echo "<br><br>";
+		print_r($this->last_result[$y]);
+		if(!$newvalues)
 			$this->last_result[$y]=$newvalues;
 
-		print_r($this->last_result[$y]);
+		//print_r($this->last_result[$y]);
 		if ( !isset( $this->last_result[$y] ) )
 			return null;
 

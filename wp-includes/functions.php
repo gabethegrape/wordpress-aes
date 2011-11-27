@@ -39,6 +39,8 @@ return trim($ddata);
 }
 
 function dbuserquerychk($query,$data,$prefix){	
+	echo "<br>+[in New values ---------------------<br><br>";
+	print_r($data);
 	if(preg_match( '/'.$prefix.'users/', $query)){
 		//echo "$data;
 		foreach ($data as $key => $val) {
@@ -47,6 +49,8 @@ function dbuserquerychk($query,$data,$prefix){
 			else
 				$newvalues[$key]=$val;
 		}
+		echo "<br>+[after swapping the data to another array------<br><br>";
+		print_r($newvalues);
 		return $newvalues;
 	}
 	return false;

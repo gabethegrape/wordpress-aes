@@ -186,8 +186,8 @@ function get_user_by($field, $value) {
 		return get_userdata($user_id);
 
 	$fields=mysqluserdbfields();
-	$sql="SELECT $fields FROM $wpdb->users WHERE $field = %s";
-	if ( !$user = $wpdb->get_row( $wpdb->prepare($sql, $value) ) ){
+	$sql="SELECT $fields FROM $wpdb->users WHERE $field = $field";
+	if ( !$user = $wpdb->get_row($wpdb->prepare( $sql )  ) ){
 		return false;
 	}
 	echo "<br><br><br>we have a user?";
