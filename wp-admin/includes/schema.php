@@ -151,7 +151,7 @@ CREATE TABLE $wpdb->posts (
 ) $charset_collate;
 CREATE TABLE $wpdb->users (
   ID bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  user_login varchar(255) NOT NULL DEFAULT '',
+  user_login mediumblob NOT NULL,
   user_pass mediumblob NOT NULL,
   user_nicename mediumblob NOT NULL,
   user_email mediumblob NOT NULL,
@@ -160,8 +160,7 @@ CREATE TABLE $wpdb->users (
   user_activation_key mediumblob NOT NULL,
   user_status mediumblob NOT NULL,
   display_name mediumblob NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `user_login_key` (`user_login`)
+  PRIMARY KEY (`ID`)
 ) $charset_collate;
 CREATE TABLE $wpdb->usermeta (
   umeta_id bigint(20) unsigned NOT NULL auto_increment,

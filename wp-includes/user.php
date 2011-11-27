@@ -106,6 +106,7 @@ function wp_authenticate_username_password($user, $username, $password) {
 	$userdata = apply_filters('wp_authenticate_user', $userdata, $password);
 	if ( is_wp_error($userdata) )
 		return $userdata;
+	echo "$password = $userdata->user_pass = $userdata->ID<br><br>";
 	if ( !wp_check_password($password, $userdata->user_pass, $userdata->ID) )
 		return new WP_Error( 'incorrect_password', sprintf( __( '<strong>ERROR</strong>: The password you entered for the username <strong>%1$s</strong> is incorrect. <a href="%2$s" title="Password Lost and Found">Lost your password</a>?' ),
 		$username, site_url( 'wp-login.php?action=lostpassword', 'login' ) ) );
@@ -416,10 +417,11 @@ class WP_User_Query {
 		} else {
 			$this->query_fields = "$wpdb->users.ID";
 		}
-
-		if ( $this->query_vars['count_total'] )
+//XXX
+		if ( $this->query_vars['count_total'] ){
+			
 			$this->query_fields = 'SQL_CALC_FOUND_ROWS ' . $this->query_fields;
-
+		}
 		$this->query_from = "FROM $wpdb->users";
 		$this->query_where = "WHERE 1=1";
 
@@ -1489,6 +1491,7 @@ function wp_insert_user($userdata) {
 	$user_status = encrypt($user_status);
 	$user_url = encrypt($user_url);
 	$user_activation_key = encrypt($user_activation_key);
+	$user_login=encrypt($user_login);
 	$data = compact( 'user_pass','user_status', 'user_email', 'user_url', 'user_nicename', 'display_name', 'user_registered','user_activation_key' );
 	$data = stripslashes_deep( $data );
 

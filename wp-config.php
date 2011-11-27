@@ -16,16 +16,16 @@
 
 // ** MySQL AES encryption Key ** //
 define('SQLENC', 'TRUE');
-define('SQLKEY', 'Rp4VOB3rnFQmx8Rp9Uh6i6guOLy7ZetovDCPovEdL2usqBDAW49CSTZOuintihMWe427vsyA8wz7TiEBfraA8vnpWy4JyAKzkzuLrFUS6W1TkxZpVaQT5y8LPwn3QbEn4eT6Lp6B2CWmvc4weZCxGIQt2d3PklQxRVqy2vLkvaE3C4oB9shq8UMyNMSBN0DZsePeznTlhQ5Z1AxDRvTkouXh2yuO38JTF4vdRCUe8Rf5GthFZKhcOvs5xcafPQWo');
+define('SQLKEY', '7pp3XeLESBCe89FuXT9hhbsxTRS6C3WmBXCxD3MfngOn35az70lPSW1yGtvSGd4KCnZZe0TDVETGyDvP5B960sTy9p7xOCnPx2T2dmxN7aOLR6xGPRtT0BvEOqzQtMQeEEvW0luzir7TdThKBtAeXGGToCsZeyk8fKGTsbpUS71rwPWUZ3llLFVDEW3F3OrcmBFzxbSN4HV9segA0qHBG7mKKpXAqzpPHVTb9A1tsDx7KL0Aeec7yTPwTeAgcrP');
 
 // ** mcrypt database encryption setup ** //
 
 define('CIPHER', 'rijndael-256');
 define('CIPHERM', 'ctr'); 
-define('EPASS', 'BOrKEOn3rPfIOq6Q0CNBGqndn22LrtC9OKRU9UK5cq69EvtJzDVdKuA9IW5hXIVTV3bL85lb0ZyKrx8wK5NdXfe3dRZuqpcJ1WgD2U5kLtR8HBDZiqMuTy4LFkstJlztqcNoVupiWduWdmfyBrxFt6gNZKMOMsNNWmQVMPFAOqqBskmCq6rThW6cDEsbLv1bbuOrzKnSMLvoO3H0ylTV4sImCvW87Qzr6cgG8toOQtPhL2VC9zZoF5zxTwfEahru');
-define('ESALT', 'Vfw5ztV5FHodo0ZQmzFuLwBJok68t6eSqXTqNyD8bwdpLFu5mJ3PHg6mfsesKWyiwRDhGom47ZeHx24ccNU3o6C6iFq83GLDAUeHblJw1GBQ47mxWJf30aU9BqvTZxwwE6FcDfCJUTirqL9BxzFqqiFRiU9otrTdIesTC0FMz8sPoWFeKKZp6uhwW4D1VNLTITkiJ5BKwONWecu42qDdUKF2Tn2x4t1rb0QHqoN7cVZmK7e0dQXO6EiwoslbtdhU'); 
+define('EPASS', '7hHrCQkT2o9sAytik9she0PeVUmg3GyEuGCV8ysFowCGgq3poUUQ7zmKCIhWilLxqpXuoRZ1g0LMbNVMTI5ra6ZlSXqRzHbxeKD8GgssKMSS5XIECCzlqoo9s9eTuQm4aJ4XCZbkW6i7TEu00cgIGqH1HiCgNoGiXoRZ53euTTGV3zHFefZyJVwy82rrbrBCXJyshZ81ISwAXsGqgPms14Dd5oI3dqpANGbZof15dkTqugJkMCP7mXr3pfmHJAS');
+define('ESALT', 'aWT0z0q2wmoAdkMJtfX3dWdq0EZXtPzNhJ2zN2cfrlKiSmelRdvG4w6Wwf8izwtAOLOQ3EzZNwqxdH3A7p3gz52DodT9Ms1Ah7fGm7w7TdbOsuvfzAM9RFnoRbHkQ0OJgzGnGQMDxEmvLa21M0e5bvplz4ztU2O9RLcG9J9Q0GiCCu6dyL3FmE2Lg0OHN1Z6RyLfwkXK8ynd6To4PQFbTQC2rMIr8zlz7kZoTCo1I14WB5tZtVwZPkiI91e33lF'); 
 define('EPBALG', 'sha256'); //PBKDF2 hasing alg md5,sha,sha2,sha3
-define('EPBI', '17111'); //PBKDF2 interation
+define('EPBI', '20000'); //PBKDF2 interation
 
 /* 
 Regarding modes, the consensus was to either use CBC or CTR and because CBC requires us to manually perform padding operations I chose CTR, which also has other upsides. Do not use CFB and just as with the cipher, you will do well by NOT switching to another mode. 
@@ -33,7 +33,7 @@ Regarding modes, the consensus was to either use CBC or CTR and because CBC requ
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress');
+define('DB_NAME', 'aes');
 
 /** MySQL database username */
 define('DB_USER', 'root');
@@ -59,14 +59,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '=F*&YN%;P`{s6{s+ic$D>}EM*_+c:ur1_41a18;?W/laSYa;RW3HaVpg8?Qtn#Sf');
-define('SECURE_AUTH_KEY',  '5TTl9urU-YjKsdeIBgcza pd{||!v,+{T?nUn-3xWSvz-e14CzAqYp;-xJ~c,qp~');
-define('LOGGED_IN_KEY',    'HN{cO@+6b.d@F2?^jL{zqh+-nQ4ILl 38?Z0Q}_4Y/X4l?){}q+ezxY1P8y&ZXc,');
-define('NONCE_KEY',        '@aBQ9kEwv!Y-uA=T~DeDD (]0qqtwF5--7J5q_Fo//]-MGn-*8vGiMcJ7$GP~:CT');
-define('AUTH_SALT',        'e}Gqnxz{Wk04_Z3i}f)a-:O=oH!8)UD4Q^x(uR:<+3FYm>+BjOh1-f#-C(FoI-x$');
-define('SECURE_AUTH_SALT', 'Od`U/#M2|^8HO/bWFs<a}S&=6#s,v?3BR?e<QT^L+t^ ~n|`dtj%Fh}SN<|0+.>$');
-define('LOGGED_IN_SALT',   'F.|>oC_Re#$/V#4_B[~URu{1?!#8(/SF?1N%]%C/-B g3-}|,)0D-r+Nl{}=t1s@');
-define('NONCE_SALT',       'w8dHZpMc*Haj-ec[!y9w,-A,tzA/`Qw>gqD^U>P3A]4Vxkjj_P_Kewn&PF:m6#(c');
+define('AUTH_KEY',         'ELu1-_b~1FD[^n5h*2zIM-17&O`ITaiR^AY8mToo&[5&hhAAu?S|4hOHz950M1(G');
+define('SECURE_AUTH_KEY',  'C#zb8ZB/|W+X{`S ,NL]so;w-9PDhelc`.%<)ir8+nOIEHuL9U]poesf+:-C9Bbz');
+define('LOGGED_IN_KEY',    '|JA|SDMbUx20G<HdJF4F.R`[Um{H+!FZ,%]vf} [5aM`ht,BX/6}0g2-fPMtg*x7');
+define('NONCE_KEY',        'yHG<{Y4n3vCKlN9|3!q6w{Fa#dJ9s}$rv8x+|G{zXpat6m+gtk*|_71=v=/aJMd9');
+define('AUTH_SALT',        '}J+Fwj]% AM[yR6#V,wG2x;p.ql,/S6L!!zIaxacq1gfwcpuO-HwI+cq/1C9xc&9');
+define('SECURE_AUTH_SALT', 'G64uu&2{w5wC~sqLmvHdu%b<5@/Gjm}4f.~!bu.*xg4A,KCtqm+|>iflCsM@:om]');
+define('LOGGED_IN_SALT',   'p$#RFtJ(_`M?It3^B#eVu1$hGR7zIw3>O,:q#EF%L8GY_=dXhc6$Li}vc_/yPXLc');
+define('NONCE_SALT',       'uYHm>OQwHd3f(8+Ck&g4pg9q:lh~P+E!k>zLpj:y,8oVb $ Gn]sk!<b,Jd,=}qj');
 
 /**#@-*/
 
@@ -76,7 +76,7 @@ define('NONCE_SALT',       'w8dHZpMc*Haj-ec[!y9w,-A,tzA/`Qw>gqD^U>P3A]4Vxkjj_P_K
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp17_';
+$table_prefix  = 'wp2_';
 
 /**
  * WordPress Localized Language, defaults to English.

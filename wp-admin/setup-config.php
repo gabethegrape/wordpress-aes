@@ -84,27 +84,28 @@ function display_header() {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>WordPress &rsaquo; Setup Configuration File</title>
 <link rel="stylesheet" href="css/install.css" type="text/css" />
-<script language="javascript" type="text/javascript">
-function randomString(form) {
-	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-	var string_length = 256;
+<script type="text/javascript">
+function gen(form, length, op) {
+	switch (op){
+		case "all":
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+		break;
+		case "num":
+			var chars = "0123456789";
+		break;
+	}
+
+var string_length = length;
+	
 	var randomstring = '';
 	for (var i=0; i<string_length; i++) {
 		var rnum = Math.floor(Math.random() * chars.length);
 		randomstring += chars.substring(rnum,rnum+1);
 	}
-	document.getElementById(form).innerHTML = randomstring;
-}
-
-function randomNumber(form) {
-        var chars = "0123456789";
-        var string_length = 5;
-        var randomstring = '';
-        for (var i=0; i<string_length; i++) {
-                var rnum = Math.floor(Math.random() * chars.length);
-                randomstring += chars.substring(rnum,rnum+1);
-        }
-        document.getElementById(form).value = randomstring;
+	if(op=="num")
+		document.getElementById(form).value = randomstring;
+	else
+		document.getElementById(form).innerHTML = randomstring;
 }
 
 </script>
@@ -159,7 +160,7 @@ switch($step) {
                 <tr>
                         <th scope="row"><label for="mysqlkey">MySQL AES Key</label>
 <div align="center">
-<input class="button" type="button" value="Generate" onClick="randomString('sqlkey');" \>
+<input class="button" type="button" value="Generate" onClick="gen('sqlkey','255', 'all');" \>
 </div>
 </th>
                         <td><textarea cols="40" rows="5" name="sqlkey" id="sqlkey" type="text" >Something very long and random</textarea></td>
@@ -170,7 +171,7 @@ switch($step) {
                 <tr>
                         <th scope="row"><label for="mcryptpass">PHP AES Pass 1:</label>
 <p><div align="center">
-<input class="button" type="button" value="Generate" onClick="randomString('mcryptpass');" \>
+<input class="button" type="button" value="Generate" onClick="gen('mcryptpass','255','all');" \>
 </div>
 </p>
 </th>
@@ -181,7 +182,7 @@ switch($step) {
                 <tr>
                         <th scope="row"><label for="mcryptsalt">PHP AES Salt 1:</label>
 <center>
-<input class="button" type="button" value="Generate" onClick="randomString('mcryptsalt');" \>
+<input class="button" type="button" value="Generate" onClick="gen('mcryptsalt','255','all');" \>
 </center>
 </th>
                         <td><textarea cols="40" rows="5" name="mcryptsalt" id="mcryptsalt" type="text" value="pepper?">Something verylong and random</textarea></td>
@@ -192,9 +193,11 @@ switch($step) {
 		<tr>
                         <th scope="row"><label for="mcryptcipher">Cipher</label></th>
                         <td align="center">
+
 				<select name="encipher" id="encipher">
 					<option value="rijndael-256">rijndael-256</option>
 				</select>
+
 			</td>
                         <td>The encryption cipher you would like to use to encrypt your database with. </td>
                 </tr>
@@ -227,7 +230,7 @@ switch($step) {
                 <tr>
                         <th scope="row"><label for="mcryptPBKDF2intc">PBKDF2 Interation Count</label>
 <div align="center">
-<input class="button" type="button" value="Generate" onClick="randomNumber('mcryptPBKDF2interation');" \>
+<input class="button" type="button" value="Generate" onClick="gen('mcryptPBKDF2interation','5','num');" \>
 </div>
 </th>
                         <td><input name="mcryptPBKDF2interation" id="mcryptPBKDF2interation" type="text" size="25" value="20000" /></td>

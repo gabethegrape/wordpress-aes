@@ -23,26 +23,38 @@
  * @return string Date formated by $dateformatstring or locale (if available).
  */
 function create_key(){
-global $cryptastic;
-$key = $cryptastic->pbkdf2(EPASS,ESALT,EPBI,32,EPBALG);
-$_SESSION['cryptkey']=$key;
-
+	global $cryptastic;
+	$cryptastic->key = $cryptastic->pbkdf2(EPASS,ESALT,EPBI,32,EPBALG);
 }
 function encrypt($data){
 	global $cryptastic;
-	$edata=$cryptastic->encrypt($data, $_SESSION['cryptkey'], true);
+	$edata=$cryptastic->encrypt($data, $cryptastic->key, true);
 return trim($edata);
 }
 
 function decrypt($data){
 	global $cryptastic;
-	$ddata=$cryptastic->decrypt($data,$_SESSION['cryptkey'],true);
+	$ddata=$cryptastic->decrypt($data,$cryptastic->key,true);
 return trim($ddata);
+}
+
+function dbuserquerychk($query,$data,$prefix){	
+	if(preg_match( '/'.$prefix.'users/', $query)){
+		//echo "$data;
+		foreach ($data as $key => $val) {
+    			if($key != "ID")
+				$newvalues[$key]=decrypt($val);
+			else
+				$newvalues[$key]=$val;
+		}
+		return $newvalues;
+	}
+	return false;
 }
 
 function mysqluserdbfields(){
         if(SQLENC=="TRUE")
-                $fields = "ID, user_login, AES_DECRYPT(user_pass,'".SQLKEY."') as user_pass,
+                $fields = "ID, AES_DECRYPT(user_login,'".SQLKEY."') as user_login, AES_DECRYPT(user_pass,'".SQLKEY."') as user_pass,
         AES_DECRYPT(user_nicename, '".SQLKEY."') as user_nicename, AES_DECRYPT(user_email,'".SQLKEY."') as user_email,
         AES_DECRYPT(user_url, '".SQLKEY."') as user_url, AES_DECRYPT(user_registered,'".SQLKEY."')as user_registered,
         AES_DECRYPT(user_activation_key,'".SQLKEY."') as user_activation_key,

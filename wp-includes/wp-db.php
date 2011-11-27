@@ -1191,7 +1191,7 @@ class wpdb {
 
 	function field_check($data){
 		$found=false;
-		$fields=array('user_login','user_id','meta_key');
+		$fields=array('user_id','meta_key');
 		foreach((array) $fields as $field){
 			if(strstr($data, $field)){
 				$found=true;	
@@ -1201,7 +1201,6 @@ class wpdb {
 	}
 
 	function format_field($data){
-		$sqlkey=SQLKEY;	
 		if(SQLENC == "TRUE")
 			$op = "AES";
 		else
@@ -1210,7 +1209,7 @@ class wpdb {
 		switch($op){
 			case "AES":
 				if(!$this->field_check($data))
-                			$form = "AES_ENCRYPT('%s','$sqlkey')";
+                			$form = "AES_ENCRYPT('%s','".SQLKEY."')";
                 		else
                         		$form = '%s';
 				break;
@@ -1365,7 +1364,29 @@ class wpdb {
 		// Extract var out of cached results based x,y vals
 		if ( !empty( $this->last_result[$y] ) ) {
 			$values = array_values( get_object_vars( $this->last_result[$y] ) );
-		}
+		 	if(preg_match( '/'.$this->prefix.'users/', $this->last_query )){
+                                	$count='0';
+                                	foreach((array) $values as $value){
+                                        	switch($count){
+                                                	case 0:
+                                                        	$newvalues[$count]=$value;
+                                                	case 1:
+                                                        	$newvalues[$count]=$value;
+                                                	default:
+                                                        	$newvalues[$count]=decrypt($value);
+
+                                        	}
+
+                                        	$count=$count++;
+                                	}
+
+                                print_r($values);
+                                echo "$x - $y";
+                               // return ( isset( $newvalues[$x] ) && $newvalues[$x] !== '' ) ? $newvalues[$x] : null;
+                        }
+                        echo $this->prefix;
+                        echo $this->last_query;
+                }
 
 		// If there is a value return it else return null
 		return ( isset( $values[$x] ) && $values[$x] !== '' ) ? $values[$x] : null;
@@ -1384,14 +1405,21 @@ class wpdb {
 	 * @param int $y Optional. Row to return. Indexed from 0.
 	 * @return mixed Database query result in format specifed by $output or null on failure
 	 */
+	
 	function get_row( $query = null, $output = OBJECT, $y = 0 ) {
 		$this->func_call = "\$db->get_row(\"$query\",$output,$y)";
-
 		if ( $query )
 			$this->query( $query );
 		else
 			return null;
+		print_r($this->last_result[$y]);
 
+		$newvalues=dbuserquerychk($query,$this->last_result[$y],$this->prefix);		
+
+		if($newvalues != false)
+			$this->last_result[$y]=$newvalues;
+
+		print_r($this->last_result[$y]);
 		if ( !isset( $this->last_result[$y] ) )
 			return null;
 

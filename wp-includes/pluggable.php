@@ -161,7 +161,6 @@ if ( !function_exists('get_user_by') ) :
  */
 function get_user_by($field, $value) {
 	global $wpdb;
-	$sqlkey=SQLKEY;
 	switch ($field) {
 		case 'id':
 			return get_userdata($value);
@@ -191,7 +190,10 @@ function get_user_by($field, $value) {
 	if ( !$user = $wpdb->get_row( $wpdb->prepare($sql, $value) ) ){
 		return false;
 	}
-	$user=decryptuser($user);
+	echo "<br><br><br>we have a user?";
+	//print_r($user);
+	echo "<br><br><br>";
+	//$user=decryptuser($user);
 	_fill_user($user);
 	return $user;
 }
@@ -536,7 +538,6 @@ function wp_authenticate($username, $password) {
 	$password = trim($password);
 
 	$user = apply_filters('authenticate', null, $username, $password);
-
 	if ( $user == null ) {
 		// TODO what should the error message be? (Or would these even happen?)
 		// Only needed if all authentication handlers fail to return anything.
